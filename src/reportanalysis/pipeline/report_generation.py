@@ -51,33 +51,37 @@ class ReportGenerationStage:
     
     def _setup_custom_styles(self):
         """Set up custom paragraph styles for the report."""
-        self.styles.add(ParagraphStyle(
-            name='CustomTitle',
-            parent=self.styles['Heading1'],
-            fontSize=24,
-            textColor=colors.HexColor('#1f4788'),
-            spaceAfter=30,
-            alignment=TA_CENTER,
-            fontName='Helvetica-Bold'
-        ))
+        # Only add styles if they don't already exist
+        if 'CustomTitle' not in self.styles:
+            self.styles.add(ParagraphStyle(
+                name='CustomTitle',
+                parent=self.styles['Heading1'],
+                fontSize=24,
+                textColor=colors.HexColor('#1f4788'),
+                spaceAfter=30,
+                alignment=TA_CENTER,
+                fontName='Helvetica-Bold'
+            ))
         
-        self.styles.add(ParagraphStyle(
-            name='SectionHeading',
-            parent=self.styles['Heading2'],
-            fontSize=16,
-            textColor=colors.HexColor('#2c5aa0'),
-            spaceAfter=12,
-            spaceBefore=12,
-            fontName='Helvetica-Bold'
-        ))
+        if 'SectionHeading' not in self.styles:
+            self.styles.add(ParagraphStyle(
+                name='SectionHeading',
+                parent=self.styles['Heading2'],
+                fontSize=16,
+                textColor=colors.HexColor('#2c5aa0'),
+                spaceAfter=12,
+                spaceBefore=12,
+                fontName='Helvetica-Bold'
+            ))
         
-        self.styles.add(ParagraphStyle(
-            name='BodyText',
-            parent=self.styles['Normal'],
-            fontSize=11,
-            spaceAfter=12,
-            alignment=TA_LEFT
-        ))
+        if 'BodyText' not in self.styles:
+            self.styles.add(ParagraphStyle(
+                name='BodyText',
+                parent=self.styles['Normal'],
+                fontSize=11,
+                spaceAfter=12,
+                alignment=TA_LEFT
+            ))
     
     def execute(self, analysis_results: Dict[str, Any], output_path: str) -> Path:
         """
