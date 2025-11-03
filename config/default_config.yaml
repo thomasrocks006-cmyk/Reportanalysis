@@ -1,0 +1,30 @@
+# Report Analysis Configuration
+
+# Data ingestion settings
+data:
+  min_rows: 1
+  csv_encoding: utf-8
+  excel_sheet: 0
+  json_orient: records
+
+# Data synthesis settings
+synthesis:
+  enable_ai_insights: true
+
+# Analysis settings
+analysis:
+  correlation_threshold: 0.7
+  outlier_method: iqr
+  trend_analysis: true
+
+# Report generation settings
+report:
+  page_size: letter
+  include_visualizations: true
+  max_charts: 10
+
+# MCP (Model Context Protocol) integration
+mcp:
+  enabled: false
+  server_url: ""
+  timeout: 30
