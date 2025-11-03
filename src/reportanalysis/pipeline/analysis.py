@@ -142,12 +142,15 @@ class AnalysisStage:
         
         corr_matrix = numeric_data.corr()
         
+        # Use configured correlation threshold
+        threshold = self.config.get('correlation_threshold', 0.7)
+        
         # Find strong correlations (excluding diagonal)
         strong_correlations = []
         for i in range(len(corr_matrix.columns)):
             for j in range(i + 1, len(corr_matrix.columns)):
                 corr_value = corr_matrix.iloc[i, j]
-                if abs(corr_value) > 0.7:
+                if abs(corr_value) > threshold:
                     strong_correlations.append({
                         'variable1': corr_matrix.columns[i],
                         'variable2': corr_matrix.columns[j],

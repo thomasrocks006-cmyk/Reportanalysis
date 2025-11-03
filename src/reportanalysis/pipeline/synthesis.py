@@ -99,10 +99,11 @@ class SynthesisStage:
         date_columns = data.select_dtypes(include=['datetime64']).columns
         
         if len(date_columns) == 0:
-            # Try to detect date columns
+            # Try to detect date columns without modifying original data
             for col in data.columns:
                 try:
-                    data[col] = pd.to_datetime(data[col])
+                    # Test conversion without modifying original
+                    pd.to_datetime(data[col])
                     date_columns = [col]
                     break
                 except (ValueError, TypeError):
@@ -111,9 +112,11 @@ class SynthesisStage:
         temporal = {}
         if len(date_columns) > 0:
             date_col = date_columns[0]
+            # Convert to datetime for temporal analysis
+            date_data = pd.to_datetime(data[date_col])
             temporal['date_range'] = {
-                'start': str(data[date_col].min()),
-                'end': str(data[date_col].max())
+                'start': str(date_data.min()),
+                'end': str(date_data.max())
             }
         
         return temporal
